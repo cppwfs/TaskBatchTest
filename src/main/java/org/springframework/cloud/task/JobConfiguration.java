@@ -16,6 +16,8 @@
 
 package org.springframework.cloud.task;
 
+import java.util.Random;
+
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.StepContribution;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -45,7 +47,8 @@ public class JobConfiguration {
 
 	@Bean
 	public Job job() {
-		return jobBuilderFactory.get("job")
+		Random rand = new Random();
+		return jobBuilderFactory.get("job"+rand.nextInt())
 				.start(stepBuilderFactory.get("step1").tasklet(new Tasklet() {
 					@Override
 					public RepeatStatus execute(StepContribution contribution, ChunkContext chunkContext) throws Exception {
